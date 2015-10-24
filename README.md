@@ -144,6 +144,11 @@ Output sequence name and its length for every sequence within a fasta file:
 
     cat file.fa | awk '$0 ~ ">" {print c; c=0;printf substr($0,2,100) "\t"; } $0 !~ ">" {c+=length($0);} END { print c; }'
 
+Rename fasta with numerical headers
+
+    awk '/^>/{print ">" ++i; next}{print}' < master_assembly.fasta > rename.fasta
+
+
 Convert a FASTQ file to FASTA:
 
     sed -n '1~4s/^@/>/p;2~4p' file.fq > file.fa
